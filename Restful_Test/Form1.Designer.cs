@@ -73,9 +73,9 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(56, 69);
+            this.richTextBox1.Location = new System.Drawing.Point(56, 103);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(341, 280);
+            this.richTextBox1.Size = new System.Drawing.Size(341, 246);
             this.richTextBox1.TabIndex = 13;
             this.richTextBox1.Text = "";
             // 
@@ -108,15 +108,16 @@
             // txtParams
             // 
             this.txtParams.Location = new System.Drawing.Point(56, 41);
+            this.txtParams.Multiline = true;
             this.txtParams.Name = "txtParams";
-            this.txtParams.Size = new System.Drawing.Size(179, 22);
+            this.txtParams.Size = new System.Drawing.Size(341, 56);
             this.txtParams.TabIndex = 8;
             this.txtParams.Text = "{\"Action\":\"DoCMMWork\",\"CMMIndex\":\"1\",\"PartName\":\"AB123\",\"Count\":\"36\",\"MeasureProg" +
     "ram\":\"AB123\"}";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(241, 39);
+            this.button1.Location = new System.Drawing.Point(241, 11);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(156, 23);
             this.button1.TabIndex = 7;
