@@ -39,6 +39,7 @@ namespace ITRI
         }
         public async Task<Stream> Get()
         {
+            WebOperationContext.Current.OutgoingResponse.ContentType = "application/json";
             return await Task.Run(() => {
                 string ret = new JavaScriptSerializer().Serialize(new
                 {
@@ -46,14 +47,12 @@ namespace ITRI
                 });
 
                 byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
-
-
-                //WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
                 return new MemoryStream(resultBytes);
             });
         }
         public async Task<Stream> Post(Stream body)
         {
+            WebOperationContext.Current.OutgoingResponse.ContentType = "application/json";
             string content = null;
             using (StreamReader reader = new StreamReader(body, Encoding.UTF8))
             {
@@ -68,9 +67,6 @@ namespace ITRI
                 });
 
                 byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
-
-
-                //WebOperationContext.Current.OutgoingResponse.ContentType = "application/json";
                 return new MemoryStream(resultBytes);
             });
 
