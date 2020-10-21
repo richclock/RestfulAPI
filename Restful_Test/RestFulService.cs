@@ -48,7 +48,7 @@ namespace ITRI
                 byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
 
 
-                WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
+                //WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
                 return new MemoryStream(resultBytes);
             });
         }
@@ -60,9 +60,11 @@ namespace ITRI
                 content = await reader.ReadToEndAsync();
             }
             return await Task.Run(() => {
+
+                object json = new JavaScriptSerializer().DeserializeObject(content);
                 string ret = new JavaScriptSerializer().Serialize(new
                 {
-                    echo = content
+                    echo = json
                 });
 
                 byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
