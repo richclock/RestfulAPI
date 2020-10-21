@@ -13,30 +13,20 @@ using System.Web.Http;
 using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
 using System.IO;
-using System;
+using System.Text;
 
-
-/************************************************************************************
-* Autor：clock
-* Email：clarkliao@itri.org.tw
-* Version：V1.0.0.0
-* CreateTime：2019/3/25 13:36:40
-* Description：
-* Company：ITRI
-* Copyright © 2018  All Rights Reserved
-************************************************************************************/
 namespace ITRI
 {
     [ServiceContract(Name = "RestFulService")]
     public interface IRestServer
     {
         [OperationContract]
-        [WebGet(UriTemplate = "api/MachineTool", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        System.IO.Stream Get();
+        [WebGet(UriTemplate = "api/get", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        Task<Stream> Get();
 
         [OperationContract]
-        [WebInvoke(Method = "POST", UriTemplate = "api/MachineTool", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
-        System.IO.Stream Post(string value);
+        [WebInvoke(Method = "POST", UriTemplate = "api/post", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        Task<Stream> Post(Stream body);
     }
 
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Single, IncludeExceptionDetailInFaults = true)]
@@ -47,32 +37,40 @@ namespace ITRI
         {
 
         }
-        public Stream Get()
+        public async Task<Stream> Get()
         {
-            string ret = new JavaScriptSerializer().Serialize(new {
-                error = "Restful Get Test"
+            return await Task.Run(() => {
+                string ret = new JavaScriptSerializer().Serialize(new
+                {
+                    error = "Restful Get Test"
+                });
+
+                byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
+
+
+                WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
+                return new MemoryStream(resultBytes);
             });
-
-            byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
-
-       
-            WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
-            return new MemoryStream(resultBytes);
-
-
         }
-        public Stream Post(string value)
+        public async Task<Stream> Post(Stream body)
         {
-            string ret = new JavaScriptSerializer().Serialize(new {
-                error = "Error"
+            string content = null;
+            using (StreamReader reader = new StreamReader(body, Encoding.UTF8))
+            {
+                content = await reader.ReadToEndAsync();
+            }
+            return await Task.Run(() => {
+                string ret = new JavaScriptSerializer().Serialize(new
+                {
+                    echo = content
+                });
+
+                byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
+
+
+                //WebOperationContext.Current.OutgoingResponse.ContentType = "application/json";
+                return new MemoryStream(resultBytes);
             });
-
-            byte[] resultBytes = Encoding.UTF8.GetBytes(ret);
-
-
-            WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
-            return new MemoryStream(resultBytes);
-
 
         }
     }

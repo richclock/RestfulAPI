@@ -103,7 +103,7 @@
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(179, 22);
             this.txtUrl.TabIndex = 10;
-            this.txtUrl.Text = "http://140.96.24.96/api/CMM";
+            this.txtUrl.Text = "http://localhost:48266/api/part";
             // 
             // txtParams
             // 
@@ -112,8 +112,7 @@
             this.txtParams.Name = "txtParams";
             this.txtParams.Size = new System.Drawing.Size(341, 56);
             this.txtParams.TabIndex = 8;
-            this.txtParams.Text = "{\"Action\":\"DoCMMWork\",\"CMMIndex\":\"1\",\"PartName\":\"AB123\",\"Count\":\"36\",\"MeasureProg" +
-    "ram\":\"AB123\"}";
+            this.txtParams.Text = "{\"Action\":\"GetERPData\",\"StartTime\":\"2019/06/04 12:00:00\"}\r\n";
             // 
             // button1
             // 

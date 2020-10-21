@@ -66,6 +66,7 @@ namespace Restful_Test
                 //_serviceHost.Close();
             }
             catch (Exception ex) {
+                MessageBox.Show("Rest Server開啟失敗");
                 Console.WriteLine("Rest Server開啟失敗：{0}\r\n{1}", ex.Message, ex.StackTrace);
             }
         }
