@@ -112,7 +112,7 @@
             this.txtParams.Name = "txtParams";
             this.txtParams.Size = new System.Drawing.Size(341, 56);
             this.txtParams.TabIndex = 8;
-            this.txtParams.Text = "{\"Action\":\"GetERPData\",\"StartTime\":\"2019/06/04 12:00:00\"}\r\n";
+            this.txtParams.Text = "{\"Action\":\"GetERPData\",\"StartTime\":\"2019/06/04 12:00:00\"}";
             // 
             // button1
             // 

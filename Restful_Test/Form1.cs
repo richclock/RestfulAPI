@@ -49,6 +49,7 @@ namespace Restful_Test
                 richTextBox1.Text = ret;
             }
             catch (Exception ex) {
+                MessageBox.Show(ex.Message);
                 Console.WriteLine("Rest Client失敗：{0}\r\n{1}", ex.Message, ex.StackTrace);
             }
         }
